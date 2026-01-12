@@ -23,25 +23,18 @@ The **Gatekeeper Index** automates this scouting process by:
 * `src/gatekeeper_score.py`: Aggregation engine to produce player leaderboards.
 * `main.py`: The central execution pipeline.
 
-## 🔍 Sample Test Case
-To validate the pipeline, we analyzed a specific Power Play sequence from the **2022-02-08 Canada at USA** matchup. 
+## 📊 Sample Insights (Full Game Batch)
+Using 2022 Olympic tracking data across multiple Power Play segments, the engine analyzed **37 unique zone entries**.
 
-* **Target File:** `2022-02-08 Canada at USA P1 PP2.csv`
-* **Data Points:** 22,703 tracking rows.
-* **Coordinate System:** IIHF Standard (Rink length 0-200ft, Blue lines at 75ft and 125ft).
-* **Logic Applied:** 60-frame cooldown (2 seconds at 30fps) to filter out puck "dangling" on the blue line.
-
-## 📊 Sample Insights
-Using the test case above, the engine successfully identified 18 unique zone entries and mapped the primary defender's gap for each. 
-
-**Top "Gatekeepers" in sample test case (Lowest Avg Gap):**
+**Defensive Performance Leaderboard:**
 | Player | Entries Faced | Avg Gap (ft) | Min Gap (ft) |
 | :--- | :--- | :--- | :--- |
-| Jocelyne Larocque | 1 | 7.25 | 7.25 |
-| Ashton Bell | 1 | 8.17 | 8.17 |
-| Erin Ambrose | 1 | 10.02 | 10.02 |
+| Dani Cameranesi | 1 | 5.29 | 5.29 |
+| Ashton Bell | 2 | 12.58 | 8.17 |
+| Jocelyne Larocque | 3 | 18.72 | 7.25 |
+| Brianne Jenner | 4 | 22.09 | 10.06 |
 
-*Note: Smaller gap distances indicate tighter defensive coverage and higher play-suppression probability.*
+*Insight: Brianne Jenner emerged as the most frequent 'Gatekeeper' in the sample, while Dani Cameranesi recorded the tightest single gap at 5.29 feet.*
 
 ## 🚀 Getting Started
 1. Clone the repo: `git clone https://github.com/anthonydevito/hockey-gatekeeper-index.git`
