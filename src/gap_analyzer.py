@@ -1,32 +1,35 @@
 import numpy as np
 
 def calculate_gap(df, entry_frame, attacking_zone):
-    """Finds the distance to the closest defender at the moment of entry."""
-    # 1. Get all players at that specific frame
+    """
+    Calculates the Euclidean distance to the nearest opponent at the time of zone entry.
+    Used to quantify defensive pressure and gap control at the blue line.
+    """
+    # Filter data for the specific frame of entry
     frame_data = df[df['frame_id'] == entry_frame].copy()
     
+    # Locate puck coordinates
     puck_pos = frame_data[frame_data['jersey_number'] == 100]
-    if puck_pos.empty: return None
+    if puck_pos.empty: 
+        return None
     
     puck_x, puck_y = puck_pos.iloc[0]['x_ft'], puck_pos.iloc[0]['y_ft']
     
-    # 2. Identify the defending team
-    # If attacking right (x > 125), defenders are players with x > 125 (usually)
-    # But a better way is to look at the team_name of the player closest to puck
-    # For now, let's find the closest player who is NOT on the team that just entered
-    
-    # Let's find the puck carrier first (closest to puck)
+    # Calculate player distances to the puck
     players = frame_data[frame_data['jersey_number'] != 100].copy()
     players['dist'] = np.sqrt((players['x_ft'] - puck_x)**2 + (players['y_ft'] - puck_y)**2)
     
-    if players.empty: return None
+    if players.empty: 
+        return None
     
+    # Identify the puck carrier and attacking team
     carrier = players.loc[players['dist'].idxmin()]
     attacking_team = carrier['team_name']
     
-    # 3. Find the closest opponent (the Defender)
+    # Identify the closest opponent (the primary defender)
     defenders = players[players['team_name'] != attacking_team]
-    if defenders.empty: return None
+    if defenders.empty: 
+        return None
     
     closest_defender = defenders.loc[defenders['dist'].idxmin()]
     
