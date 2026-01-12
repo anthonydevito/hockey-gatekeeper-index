@@ -23,10 +23,18 @@ The **Gatekeeper Index** automates this scouting process by:
 * `src/gatekeeper_score.py`: Aggregation engine to produce player leaderboards.
 * `main.py`: The central execution pipeline.
 
-## 📊 Sample Insights
-Using 2022 Olympic tracking data, the engine successfully identified elite defensive stands. 
+## 🔍 Sample Test Case
+To validate the pipeline, we analyzed a specific Power Play sequence from the **2022-02-08 Canada at USA** matchup. 
 
-**Top "Gatekeepers" (Lowest Avg Gap):**
+* **Target File:** `2022-02-08 Canada at USA P1 PP2.csv`
+* **Data Points:** 22,703 tracking rows.
+* **Coordinate System:** IIHF Standard (Rink length 0-200ft, Blue lines at 75ft and 125ft).
+* **Logic Applied:** 60-frame cooldown (2 seconds at 30fps) to filter out puck "dangling" on the blue line.
+
+## 📊 Sample Insights
+Using the test case above, the engine successfully identified 18 unique zone entries and mapped the primary defender's gap for each. 
+
+**Top "Gatekeepers" in sample test case (Lowest Avg Gap):**
 | Player | Entries Faced | Avg Gap (ft) | Min Gap (ft) |
 | :--- | :--- | :--- | :--- |
 | Jocelyne Larocque | 1 | 7.25 | 7.25 |
